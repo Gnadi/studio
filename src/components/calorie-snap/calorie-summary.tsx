@@ -12,10 +12,12 @@ interface CalorieSummaryProps {
 export default function CalorieSummary({ foodItems, totalCalories }: CalorieSummaryProps) {
   // Macronutrients are not provided by the current AI. This is a placeholder.
   // In a real app, this would be calculated or fetched.
-  const estimatedProtein = "--";
-  const estimatedCarbs = "--";
-  const estimatedFats = "--";
+  console.log("FOOOD ITEMS", foodItems);
 
+
+  const estimatedProtein = foodItems.reduce((total, item) => total + (item.protein || 0), 0);
+  const estimatedCarbs = foodItems.reduce((total, item) => total + (item.carbs || 0), 0);
+  const estimatedFats = foodItems.reduce((total, item) => total + (item.fats || 0), 0);
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
@@ -53,9 +55,6 @@ export default function CalorieSummary({ foodItems, totalCalories }: CalorieSumm
               <p className="text-2xl font-semibold text-primary-foreground">{estimatedFats} g</p>
             </div>
           </div>
-          <p className="text-xs text-muted-foreground italic mt-3 text-center">
-            Note: Detailed macronutrient breakdown is an illustrative placeholder.
-          </p>
         </div>
         
         {foodItems.length > 0 && (

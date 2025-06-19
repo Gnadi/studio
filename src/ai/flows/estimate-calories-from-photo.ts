@@ -24,6 +24,9 @@ const FoodItemSchema = z.object({
   name: z.string().describe('The name of the food item.'),
   quantity: z.string().describe('The quantity of the food item (e.g., 1 slice, 1 cup, 100g).'),
   calories: z.number().describe('The estimated calorie count for the specified quantity.'),
+  protein: z.number().describe('The estimated protein of this meal.'),
+  carbs: z.number().describe('The estimated carbs of this meal.'),
+  fats: z.number().describe('The estimated fats of this meal.'),
 });
 
 const EstimateCaloriesFromPhotoOutputSchema = z.object({
@@ -40,7 +43,24 @@ const analyzeMealPrompt = ai.definePrompt({
   name: 'analyzeMealPrompt',
   input: {schema: EstimateCaloriesFromPhotoInputSchema},
   output: {schema: EstimateCaloriesFromPhotoOutputSchema},
-  prompt: `You are an expert nutritionist. Analyze the photo of the meal and identify the food items present, along with their estimated quantities and calorie counts.
+  prompt: `You are an expert nutritionist and a highly accurate food recognition AI. Your task is to meticulously analyze the provided photo of a meal.
+
+**Objective:**
+Identify all individual food items present in the meal, estimate their quantities (in common measurable units), and provide a detailed nutritional breakdown for the *entire meal*.
+
+**Specific Requirements:**
+1.  **Food Item Identification:** List every distinct food item visible in the photo.
+2.  **Estimated Quantities:** For each identified food item, provide a realistic estimated quantity. Use standard, easily understood units (e.g., grams, ounces, cups, pieces, slices, tablespoons). If a specific measurement isn't feasible from the image, state that it's an "approximate serving."
+3.  **Calorie Count:** Provide an estimated calorie count for each individual food item, and then a total estimated calorie count for the entire meal.
+4.  **Macronutrient Breakdown (Protein, Carbs, Fats):** For each individual food item, and for the total meal, provide the estimated grams of protein, carbohydrates (including fiber if distinguishable), and fats.
+5.  **Preparation Method Consideration:** If the preparation method is visually discernible (e.g., fried, baked, steamed, roasted, grilled), include it as it significantly impacts nutritional values.
+6.  **Similar Food Items/Portion Guidance:** When providing calorie and macronutrient estimations, specifically mention the type of "similar food item" you are basing your estimation on to ensure transparency and realism (e.g., "grilled chicken breast (skinless)", "cooked white rice", "steamed broccoli"). If the meal looks like a standard serving size for a particular item, you can mention that.
+7.  **JSON Format:** Respond exclusively in a structured JSON format.
+
+**Error Handling & Assumptions:**
+* If a food item's quantity is very difficult to estimate from the photo, state this and provide a range or a typical serving size.
+* Clearly state any necessary assumptions made due to image limitations (e.g., "assuming chicken is skinless and not heavily oiled").
+* If an item is unidentifiable, state "Unidentifiable Item" and try to provide a general category if possible (e.g., "Unidentifiable green leafy vegetable").
 
   Respond in JSON format.
 

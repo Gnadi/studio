@@ -1,6 +1,6 @@
 "use client";
 
-import type { FoodItem, StoredMeal } from '@/lib/types';
+import type { FoodItem } from '@/lib/types';
 import FoodItemCard from './food-item-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,6 +30,9 @@ export default function FoodListEditor({ foodItems, onFoodItemsChange, onSaveMea
       name: '',
       quantity: '',
       calories: 0,
+      protein: 0,
+      carbs: 0,
+      fats: 0,
     };
     onFoodItemsChange([...foodItems, newItem]);
     // Note: The new item card will be in edit mode by default due to isEditingInitially in FoodItemCard

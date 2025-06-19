@@ -12,7 +12,6 @@ interface CalorieSummaryProps {
 export default function CalorieSummary({ foodItems, totalCalories }: CalorieSummaryProps) {
   // Macronutrients are not provided by the current AI. This is a placeholder.
   // In a real app, this would be calculated or fetched.
-  console.log("FOOOD ITEMS", foodItems);
 
 
   const estimatedProtein = foodItems.reduce((total, item) => total + (item.protein || 0), 0);

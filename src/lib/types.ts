@@ -3,6 +3,9 @@ export interface FoodItem {
   name: string;
   quantity: string;
   calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
 }
 
 export interface StoredMeal {
@@ -11,8 +14,4 @@ export interface StoredMeal {
   photoDataUri?: string; // Optional, if user wants to save space
   foodItems: FoodItem[];
   totalCalories: number;
-  // Future extension:
-  // proteinGrams?: number;
-  // carbsGrams?: number;
-  // fatGrams?: number;
 }

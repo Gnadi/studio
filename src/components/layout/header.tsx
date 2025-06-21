@@ -12,14 +12,14 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-2 sm:gap-4">
           <Button variant="ghost" asChild>
-            <Link href="/" className="flex items-center gap-1 sm:gap-2 text-foreground hover:text-primary">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2 text-foreground">
               <Salad size={20} />
               <span className="hidden sm:inline">Estimate</span>
               <span className="sm:hidden">Snap</span>
             </Link>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/history" className="flex items-center gap-1 sm:gap-2 text-foreground hover:text-primary">
+            <Link href="/history" className="flex items-center gap-1 sm:gap-2 text-foreground">
               <History size={20} />
               <span className="hidden sm:inline">History</span>
               <span className="sm:hidden">Log</span>

@@ -15,7 +15,7 @@ export default function CalorieEstimationClientPage() {
   const [currentPhotoDataUri, setCurrentPhotoDataUri] = useState<string | null>(null);
   const [estimatedFoodItems, setEstimatedFoodItems] = useState<FoodItem[]>([]);
   const [totalEstimatedCalories, setTotalEstimatedCalories] = useState<number>(0);
-  
+
   const [isEstimating, setIsEstimating] = useState(false);
   const [estimationError, setEstimationError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -36,6 +36,7 @@ export default function CalorieEstimationClientPage() {
         }));
         setEstimatedFoodItems(itemsWithClientIds);
         setTotalEstimatedCalories(result.totalCalories || 0);
+
         toast({
           title: "Estimation Complete!",
           description: `Found ${result.foodItems.length} items. Total: ${result.totalCalories.toFixed(0)} kcal.`,

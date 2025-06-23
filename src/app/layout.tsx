@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/header';
 import { Toaster } from '@/components/ui/toaster';
+import { getAuthenticatedAppForUser } from "@/lib/serverApp";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,22 +20,23 @@ export const metadata: Metadata = {
   description: 'Estimate calories from a photo of your meal.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default async function RootLayout({
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
+    const { currentUser } = await getAuthenticatedAppForUser();
+    return (
+      <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Header />
+        <Header initialUser={currentUser?.toJSON()} />
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
         </main>
         <Toaster />
       </body>
-    </html>
+      </html>
   );
 }

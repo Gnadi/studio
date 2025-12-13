@@ -15,3 +15,11 @@ export interface StoredMeal {
   foodItems: FoodItem[];
   totalCalories: number;
 }
+export interface UserSession {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  // Add any other properties you might need from the user object
+  // but keep it minimal to avoid unnecessary data transfer
+}
